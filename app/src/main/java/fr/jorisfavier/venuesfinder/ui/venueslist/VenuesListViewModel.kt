@@ -1,5 +1,6 @@
 package fr.jorisfavier.venuesfinder.ui.venueslist
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import fr.jorisfavier.venuesfinder.manager.IVenuesManager
@@ -12,8 +13,11 @@ import retrofit2.Response
 class VenuesListViewModel : ViewModel() {
     lateinit var venuesManager: IVenuesManager
 
-    private val _venues: MutableLiveData<ArrayList<Venue>> = MutableLiveData()
+    private val _venues: MutableLiveData<List<Venue>> = MutableLiveData()
     private val _error: MutableLiveData<String?> = MutableLiveData()
+
+    fun getVenues(): LiveData<List<Venue>> = _venues
+    fun getError(): LiveData<String?> = _error
 
     fun loadData(){
         venuesManager.searchVenues("coffee", object: retrofit2.Callback<FsqrResponseDTO<VenuesSearchResultDTO>>{
@@ -25,8 +29,10 @@ class VenuesListViewModel : ViewModel() {
                 call: Call<FsqrResponseDTO<VenuesSearchResultDTO>>,
                 response: Response<FsqrResponseDTO<VenuesSearchResultDTO>>
             ) {
-                var test = response.body()?.response?.venues
+                _venues.value = response.body()?.response?.venues?.map { Venue.fromVenueDTO(it) }
             }
         })
     }
+
+
 }
