@@ -1,18 +1,24 @@
 package fr.jorisfavier.venuesfinder.ui.venueslist
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import fr.jorisfavier.venuesfinder.R
+import fr.jorisfavier.venuesfinder.VenuesFinderApp
+import fr.jorisfavier.venuesfinder.manager.IVenuesManager
+import javax.inject.Inject
 
 class VenuesListFragment : Fragment() {
 
     companion object {
         fun newInstance() = VenuesListFragment()
     }
+
+    @Inject
+    lateinit var venuesManager: IVenuesManager
 
     private lateinit var viewModel: VenuesListViewModel
 
@@ -25,8 +31,14 @@ class VenuesListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        VenuesFinderApp.currentInstance?.appModule?.inject(this)
         viewModel = ViewModelProviders.of(this).get(VenuesListViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.venuesManager = venuesManager
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.loadData()
     }
 
 }
