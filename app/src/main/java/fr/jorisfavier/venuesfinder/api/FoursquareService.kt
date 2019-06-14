@@ -29,7 +29,7 @@ interface FoursquareService {
         val baseUrl = "https://api.foursquare.com/v2/"
 
         fun create(): FoursquareService {
-            //We create an interceptor to add an api key to each
+            //We create an interceptor to add the clien_id, client_secret et version to each
             //call for this API
             val interceptor = Interceptor { chain ->
                 val newUrl = chain
