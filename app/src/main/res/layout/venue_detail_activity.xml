@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+                name="viewModel"
+                type="fr.jorisfavier.venuesfinder.ui.venuedetail.VenueDetailViewModel"/>
+    </data>
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_margin="10dp"
+                  android:layout_height="match_parent">
+        <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="vertical"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+                <ImageView
+                        android:id="@+id/detail_image"
+                        android:minHeight="400dp"
+                        android:layout_width="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:layout_marginBottom="20dp"
+                        android:layout_height="wrap_content"/>
+                <LinearLayout android:orientation="vertical"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent">
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:orientation="horizontal"
+                                  android:layout_marginBottom="5dp"
+                                  android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content"
+                                  android:textColor="@android:color/black"
+                                  android:text="@string/detail.title"
+                                  android:textStyle="bold"
+                                  android:layout_height="wrap_content"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/detail_name"
+                                  android:layout_marginStart="5dp"
+                                  android:textColor="@android:color/black"
+                                  tools:text="Cinta coffee"
+                                  android:text="@{ viewModel.venue.name }"
+                                  android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:orientation="horizontal"
+                                  android:layout_marginBottom="5dp"
+                                  android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content"
+                                  android:textColor="@android:color/black"
+                                  android:text="@string/detail.address"
+                                  android:textStyle="bold"
+                                  android:layout_height="wrap_content"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:layout_marginStart="5dp"
+                                  android:id="@+id/detail_address"
+                                  android:textColor="@android:color/black"
+                                  android:text="@{ viewModel.venue.address }"
+                                  tools:text="Coolsingel 83\n3012 AE Rotterdam\nNederland"
+                                  android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:orientation="horizontal"
+                                  android:layout_marginBottom="5dp"
+                                  android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content"
+                                  android:textColor="@android:color/black"
+                                  android:text="@string/detail.contact"
+                                  android:textStyle="bold"
+                                  android:layout_height="wrap_content"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/detail_contact"
+                                  android:layout_marginStart="5dp"
+                                  android:textColor="@android:color/black"
+                                  android:text="@{ viewModel.venue.phone }"
+                                  tools:text="(212) 310-6600"
+                                  android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:orientation="horizontal"
+                                  android:layout_marginBottom="20dp"
+                                  android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content"
+                                  android:textColor="@android:color/black"
+                                  android:text="@string/detail.rating"
+                                  android:textStyle="bold"
+                                  android:layout_height="wrap_content"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:layout_marginStart="5dp"
+                                  android:id="@+id/detail_rating"
+                                  android:text="@{ viewModel.venue.rating.toString() }"
+                                  android:textColor="@android:color/black"
+                                  tools:text="8.3"
+                                  android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:orientation="vertical"
+                                  android:layout_height="wrap_content">
+                        <TextView android:layout_width="wrap_content"
+                                  android:textColor="@android:color/black"
+                                  android:text="@string/detail.description"
+                                  android:textStyle="bold"
+                                  android:textSize="18sp"
+                                  android:layout_marginBottom="5dp"
+                                  android:layout_height="wrap_content"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/detail_description"
+                                  android:textColor="@android:color/black"
+                                  android:text="@{ viewModel.venue.description }"
+                                  tools:text="Central Park is the 843-acre green heart of Manhattan and is maintained by the Central Park Conservancy. It was designed in the 19th century by Frederick Law Olmsted and Calvert Vaux as an urban escape for New Yorkers, and now receives over 40 million visits per year."
+                                  android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
+</layout>

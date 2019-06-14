@@ -1,7 +1,7 @@
 package fr.jorisfavier.venuesfinder.manager
 
-import fr.jorisfavier.venuesfinder.model.dto.FsqrResponseDTO
-import fr.jorisfavier.venuesfinder.model.dto.VenuesSearchResultDTO
+import fr.jorisfavier.venuesfinder.model.dto.*
+import retrofit2.Callback
 
 interface IVenuesManager {
     /**
@@ -11,4 +11,11 @@ interface IVenuesManager {
      */
     fun searchVenues(search: String,
                      callback: retrofit2.Callback<FsqrResponseDTO<VenuesSearchResultDTO>>)
+
+    /***
+     * Gives the full details about a venue including location, tips, and categories
+     * @param id : id of the venue to retrieve
+     * @param callback : callback when the venue detail is retrieved
+     */
+    fun getVenueDetail(id: String, callback: Callback<FsqrResponseDTO<VenueDetailResultDTO>>)
 }

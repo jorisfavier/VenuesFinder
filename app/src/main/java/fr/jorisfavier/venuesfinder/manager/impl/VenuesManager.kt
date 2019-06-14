@@ -2,8 +2,7 @@ package fr.jorisfavier.venuesfinder.manager.impl
 
 import fr.jorisfavier.venuesfinder.api.FoursquareService
 import fr.jorisfavier.venuesfinder.manager.IVenuesManager
-import fr.jorisfavier.venuesfinder.model.dto.FsqrResponseDTO
-import fr.jorisfavier.venuesfinder.model.dto.VenuesSearchResultDTO
+import fr.jorisfavier.venuesfinder.model.dto.*
 import retrofit2.Callback
 import javax.inject.Inject
 
@@ -17,4 +16,7 @@ class VenuesManager @Inject constructor(private val fsqrService: FoursquareServi
             FoursquareService.limit).enqueue(callback)
     }
 
+    override fun getVenueDetail(id: String, callback: Callback<FsqrResponseDTO<VenueDetailResultDTO>>) {
+        fsqrService.getMovieDetail(id).enqueue(callback)
+    }
 }

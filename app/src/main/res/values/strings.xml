@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">VenuesFinder</string>
+    <string name="detail.title">Name : </string>
+    <string name="detail.description">Description : </string>
+    <string name="detail.contact">Contact information : </string>
+    <string name="detail.address">Address : </string>
+    <string name="detail.rating">Rating : </string>
 </resources>
