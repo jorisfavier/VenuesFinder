@@ -3,6 +3,7 @@ package fr.jorisfavier.venuesfinder.ui.venuedetail
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -36,10 +37,16 @@ class VenueDetailActivity: AppCompatActivity() {
                 .centerCrop()
                 .into(detail_image)
         })
+        viewModel.getError().observe(this, Observer { errorMessage ->
+            if(errorMessage != null){
+                displayError(errorMessage)
+            }
+        })
     }
 
-    private fun displayError(){
-
+    private fun displayError(errorMessage: String){
+        Toast.makeText(baseContext,errorMessage, Toast.LENGTH_LONG).show()
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +65,7 @@ class VenueDetailActivity: AppCompatActivity() {
             viewModel.loadDetail(venueId!!)
         }
         else {
-            displayError()
+            displayError("An error occured")
         }
     }
 }

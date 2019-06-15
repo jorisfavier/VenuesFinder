@@ -28,6 +28,7 @@ class VenuesListViewModel : ViewModel() {
      */
     fun searchVenues(query: String){
         _loading.value = true
+        _showError.value = false
         venuesManager.searchVenues(query, object: retrofit2.Callback<FsqrResponseDTO<VenuesSearchResultDTO>>{
             override fun onFailure(call: Call<FsqrResponseDTO<VenuesSearchResultDTO>>, t: Throwable) {
                 _error.value = "An error occured"
