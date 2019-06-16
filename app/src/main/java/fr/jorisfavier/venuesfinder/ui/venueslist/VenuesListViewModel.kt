@@ -13,7 +13,7 @@ import retrofit2.Response
 
 class VenuesListViewModel : ViewModel() {
     lateinit var venuesManager: IVenuesManager
-    lateinit var venueRepo: VenueDao
+    lateinit var venueDao: VenueDao
 
     private val _venues: MutableLiveData<List<Venue>> = MutableLiveData()
     private val _error: MutableLiveData<String?> = MutableLiveData()
@@ -22,7 +22,7 @@ class VenuesListViewModel : ViewModel() {
         //if venues is null then it means that we were unable to retrieve it from internet
         //so we look for venues within the database
         if(venues == null){
-             venueRepo.findVenuesByName((search.value?: "")+"%")
+             venueDao.findVenuesByName((search.value?: "")+"%")
         }
         else {
              MutableLiveData(venues)
@@ -62,6 +62,6 @@ class VenuesListViewModel : ViewModel() {
      * Insert
      */
     private fun insert(vararg venues: Venue) = viewModelScope.launch(Dispatchers.IO) {
-        venueRepo.insertAll(*venues)
+        venueDao.insertAll(*venues)
     }
 }

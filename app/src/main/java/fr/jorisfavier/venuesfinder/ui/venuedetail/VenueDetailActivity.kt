@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import fr.jorisfavier.venuesfinder.R
 import fr.jorisfavier.venuesfinder.VenuesFinderApp
+import fr.jorisfavier.venuesfinder.dao.VenueDao
 import fr.jorisfavier.venuesfinder.databinding.VenueDetailActivityBinding
 import fr.jorisfavier.venuesfinder.manager.IVenuesManager
 import kotlinx.android.synthetic.main.venue_detail_activity.*
@@ -25,25 +26,33 @@ class VenueDetailActivity: AppCompatActivity() {
     private lateinit var viewModel: VenueDetailViewModel
     @Inject
     lateinit var venueManager: IVenuesManager
+    @Inject
+    lateinit var venueDao: VenueDao
     private var venueId: String? = null
 
 
 
     private fun initObserver(){
-        viewModel.getVenue().observe(this, Observer { venue ->
-            Glide.with(this)
-                .load(venue.photoUrl)
-                .placeholder(ColorDrawable(Color.GRAY))
-                .centerCrop()
-                .into(detail_image)
-        })
-        viewModel.getError().observe(this, Observer { errorMessage ->
-            if(errorMessage != null){
-                displayError(errorMessage)
+        viewModel.venue.observe(this, Observer { venue ->
+            if(venue != null){
+                Glide.with(this)
+                    .load(venue.photoUrl)
+                    .placeholder(ColorDrawable(Color.GRAY))
+                    .centerCrop()
+                    .into(detail_image)
+            }
+            else if(viewModel.getError().value != null) {
+                //if venue is null it means that we were unable to find the venue detail with the Api and with the db
+                //so we display an error
+                displayError(viewModel.getError().value!!)
             }
         })
     }
 
+    /**
+     * Show an error message using a toast and close the activity
+     * @param errorMessage : the message to display in the toast
+     */
     private fun displayError(errorMessage: String){
         Toast.makeText(baseContext,errorMessage, Toast.LENGTH_LONG).show()
         finish()
@@ -55,9 +64,12 @@ class VenueDetailActivity: AppCompatActivity() {
 
         val binding = DataBindingUtil.setContentView<VenueDetailActivityBinding>(this,
             R.layout.venue_detail_activity)
+
         VenuesFinderApp.currentInstance?.appModule?.inject(this)
+
         viewModel = ViewModelProviders.of(this).get(VenueDetailViewModel::class.java)
         viewModel.venueManager = venueManager
+        viewModel.venueDao = venueDao
         binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
         initObserver()

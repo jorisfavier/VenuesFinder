@@ -24,10 +24,10 @@ interface VenueDao {
 
     /**
      * Insert the given venues in the database
-     * but if one already exists it will be replaced
+     * but if one already exists it will be not updated
      * @param venues: the venues to insert
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(vararg venues: Venue)
 
     /**

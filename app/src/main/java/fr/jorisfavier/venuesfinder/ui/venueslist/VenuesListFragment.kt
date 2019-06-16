@@ -28,7 +28,7 @@ class VenuesListFragment : Fragment() {
     lateinit var venuesManager: IVenuesManager
 
     @Inject
-    lateinit var venueRepository: VenueDao
+    lateinit var venueDao: VenueDao
 
     private lateinit var viewModel: VenuesListViewModel
     private lateinit var binding: VenuesListFragmentBinding
@@ -50,7 +50,7 @@ class VenuesListFragment : Fragment() {
         VenuesFinderApp.currentInstance?.appModule?.inject(this)
         viewModel = ViewModelProviders.of(this).get(VenuesListViewModel::class.java)
         viewModel.venuesManager = venuesManager
-        viewModel.venueRepo = venueRepository
+        viewModel.venueDao = venueDao
         initRecyclerView()
         initObserver()
         //We init the view with a blank search
