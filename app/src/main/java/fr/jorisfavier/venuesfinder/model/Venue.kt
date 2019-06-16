@@ -1,9 +1,13 @@
 package fr.jorisfavier.venuesfinder.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import fr.jorisfavier.venuesfinder.model.dto.VenueDTO
 import fr.jorisfavier.venuesfinder.model.dto.VenueDetailDTO
 
+@Entity
 class Venue(
+    @PrimaryKey
     val id: String,
     val name: String,
     val address: String,
