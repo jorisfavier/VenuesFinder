@@ -49,9 +49,11 @@ class VenuesListViewModel : ViewModel() {
                 val result = response.body()?.response?.venues?.map { Venue.fromVenueDTO(it) }
                 _venues.value = result
                 if(result != null){
-                    insert(*result.toTypedArray())
                     if(result.count() == 0){
                         _error.value = "Sorry! No venues found matching your query"
+                    }
+                    else {
+                        insert(*result.toTypedArray())
                     }
                 }
             }
